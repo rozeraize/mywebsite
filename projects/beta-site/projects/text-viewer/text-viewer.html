@@ -11,7 +11,7 @@
 
   <script>
     // Fetch the text file (replace 'your_text_file.txt' with the actual file path)
-    fetch('/text-viewer/file.txt')
+    fetch('file.txt')
       .then(response => response.text())
       .then(data => {
         const textContent = document.getElementById('text-content');
