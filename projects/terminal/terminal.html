@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimal Linux OS Emulator</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: monospace;
+            background-color: #000;
+            color: #0f0;
+        }
+        #terminal {
+            width: 100%;
+            height: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            white-space: pre-wrap;
+            overflow-y: auto;
+        }
+        #input-line {
+            display: inline;
+        }
+        #input {
+            background: none;
+            border: none;
+            color: #0f0;
+            outline: none;
+            font-family: inherit;
+            font-size: inherit;
+        }
+    </style>
+</head>
+<body>
+    <div id="terminal">
+        <div>Welcome to the Minimal Linux OS Emulator</div>
+        <div id="output"></div>
+        <div id="input-line">$ <input type="text" id="input" autofocus></div>
+    </div>
+
+    <script>
+        const terminal = document.getElementById('terminal');
+        const input = document.getElementById('input');
+        const output = document.getElementById('output');
+
+        const commands = {
+            help: 'Available commands: help, clear, echo',
+            clear: '',
+            echo: (args) => args.join(' ')
+        };
+
+        input.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                const commandLine = input.value.trim();
+                const [command, ...args] = commandLine.split(' ');
+                const result = commands[command] !== undefined 
+                    ? (typeof commands[command] === 'function' ? commands[command](args) : commands[command])
+                    : `Command not found: ${command}`;
+
+                if (command === 'clear') {
+                    output.innerHTML = '';
+                } else {
+                    output.innerHTML += `$ ${commandLine}\n${result}\n`;
+                }
+
+                input.value = '';
+                terminal.scrollTop = terminal.scrollHeight;
+            }
+        });
+    </script>
+</body>
+</html>
