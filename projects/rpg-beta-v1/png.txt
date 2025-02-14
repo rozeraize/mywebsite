@@ -1,0 +1,8 @@
+/game
+  ├── index.html
+  ├── styles.css
+  ├── script.js
+  ├── assets
+      ├── player.png
+      ├── enemy.png
+      ├── background.png

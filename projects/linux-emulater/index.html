@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux Kernel in JavaScript</title>
+    <script src="https://copy.sh/v86/build/v86.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #282c34;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        #screen {
+            width: 80%;
+            height: 80%;
+            border: 1px solid #ccc;
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+    <div id="screen"></div>
+    <script>
+        const emulator = new V86Starter({
+            wasm_path: "https://copy.sh/v86/build/v86.wasm",
+            memory_size: 128 * 1024 * 1024,
+            vga_memory_size: 8 * 1024 * 1024,
+            screen_container: document.getElementById("screen"),
+            bios: { url: "https://copy.sh/v86/bios/seabios.bin" },
+            vga_bios: { url: "https://copy.sh/v86/bios/vgabios.bin" },
+            cdrom: { url: "https://copy.sh/v86/images/linux.iso" },
+            autostart: true,
+        });
+    </script>
+</body>
+</html>
