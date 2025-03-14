@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medieval RPG</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #87CEEB;
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas"></canvas>
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const TILE_SIZE = 32;
+        const MAP_WIDTH = 50;
+        const MAP_HEIGHT = 50;
+        const DUNGEON_WIDTH = 10;
+        const DUNGEON_HEIGHT = 10;
+
+        let map = [];
+        let player = { x: 0, y: 0, health: 100 };
+        let boss = { x: 0, y: 0, health: 200 };
+
+        function generateMap() {
+            for (let y = 0; y < MAP_HEIGHT; y++) {
+                map[y] = [];
+                for (let x = 0; x < MAP_WIDTH; x++) {
+                    map[y][x] = Math.random() > 0.7 ? 1 : 0; // 1 = obstacle, 0 = grass
+                }
+            }
+        }
+
+        function generateDungeon() {
+            for (let y = 0; y < DUNGEON_HEIGHT; y++) {
+                for (let x = 0; x < DUNGEON_WIDTH; x++) {
+                    map[y][x] = Math.random() > 0.5 ? 2 : 0; // 2 = dungeon floor
+                }
+            }
+            boss.x = Math.floor(DUNGEON_WIDTH / 2);
+            boss.y = Math.floor(DUNGEON_HEIGHT / 2);
+        }
+
+        function drawMap() {
+            for (let y = 0; y < MAP_HEIGHT; y++) {
+                for (let x = 0; x < MAP_WIDTH; x++) {
+                    if (map[y][x] === 1) {
+                        ctx.fillStyle = '#8B4513'; // Brown for obstacles
+                    } else if (map[y][x] === 2) {
+                        ctx.fillStyle = '#808080'; // Gray for dungeon floor
+                    } else {
+                        ctx.fillStyle = '#32CD32'; // Green for grass
+                    }
+                    ctx.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+                }
+            }
+        }
+
+        function drawPlayer() {
+            ctx.fillStyle = '#FF0000'; // Red for player
+            ctx.fillRect(player.x * TILE_SIZE, player.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+        }
+
+        function drawBoss() {
+            ctx.fillStyle = '#0000FF'; // Blue for boss
+            ctx.fillRect(boss.x * TILE_SIZE, boss.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+        }
+
+        function movePlayer(dx, dy) {
+            const newX = player.x + dx;
+            const newY = player.y + dy;
+            if (newX >= 0 && newX < MAP_WIDTH && newY >= 0 && newY < MAP_HEIGHT && map[newY][newX] !== 1) {
+                player.x = newX;
+                player.y = newY;
+            }
+            if (player.x === boss.x && player.y === boss.y) {
+                alert('You found the boss!');
+            }
+        }
+
+        function gameLoop() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawMap();
+            drawPlayer();
+            drawBoss();
+            requestAnimationFrame(gameLoop);
+        }
+
+        window.addEventListener('keydown', (e) => {
+            switch (e.key) {
+                case 'ArrowUp': movePlayer(0, -1); break;
+                case 'ArrowDown': movePlayer(0, 1); break;
+                case 'ArrowLeft': movePlayer(-1, 0); break;
+                case 'ArrowRight': movePlayer(1, 0); break;
+            }
+        });
+
+        generateMap();
+        generateDungeon();
+        player.x = Math.floor(MAP_WIDTH / 2);
+        player.y = Math.floor(MAP_HEIGHT / 2);
+        gameLoop();
+    </script>
+</body>
+</html>
