@@ -99,3 +99,11 @@ main.flex-container {
 .post p {
     margin: 1px 1px 1px 1px;
 }
+
+h1.message {
+    background-color: darkcyan;
+    border: 5px inset whitesmoke;
+    border-radius: 5px;
+    padding: 3px 3px 3px 3px;
+    font-family: monospace;
+}
