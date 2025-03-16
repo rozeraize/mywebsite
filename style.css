@@ -125,7 +125,7 @@ h1.message {
 }
 
 .grid-container h1.message {
-    width: 100%;
+    width: 95%;
     grid-column: 1 / span 2;
     justify-self: center;
 }
