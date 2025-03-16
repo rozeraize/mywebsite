@@ -109,3 +109,26 @@ h1.message {
     text-align: center;
     text-align-last: center;
 }
+
+.grid-container {
+    display: grid;
+    gap: 10px;
+    padding: 3px 3px 3px 3px;
+}
+
+.sidebar {
+    background-color: antiquewhite;
+    border: 5px outset antiquewhite;
+    border-radius: 5px;
+    grid-column-start: 3;
+    grid-row: 1 / span 3;
+}
+
+.grid-container h1.message {
+    grid-column: 1 / span 2;
+}
+
+.grid-container p {
+    grid-column: 1 / span 2;
+    grid-row: 2 / span 3;
+}
