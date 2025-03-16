@@ -41,8 +41,6 @@ button:hover {
     background-color: darkcyan;
 }
 
-button:active {background-color: gray;}
-
 main {
     align-self: stretch;
     height: fit-content;
