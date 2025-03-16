@@ -69,7 +69,7 @@ footer p {
 }
 
 .post {
-    width: 200px;
+    width: 250px;
     height: 200px;
     background-color: darkcyan;
     border: 5px inset whitesmoke;
@@ -84,7 +84,7 @@ main.flex-container {
 }
 
 .post img { 
-    width: 200px;
+    width: 250px;
     height: 130px;
 }
 
