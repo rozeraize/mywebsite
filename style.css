@@ -126,6 +126,7 @@ h1.message {
 
 .grid-container h1.message {
     grid-column: 1 / span 2;
+    align-self: center:
 }
 
 .grid-container p {
